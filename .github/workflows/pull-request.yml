@@ -35,4 +35,4 @@ jobs:
         run:
           dev-support/ci/pr_title_check.sh "${TITLE}"
   lint:
-    uses: ./.github/workflows/lint.yml
+    uses: ./.github/workflows/lint.yaml
