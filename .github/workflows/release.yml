@@ -1,0 +1,27 @@
+name: Release
+
+on:
+  workflow_run:
+    workflows: ["build-branch"]
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: startsWith(github.event.workflow_run.head_branch, 'ozone-')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: "${{ github.event.workflow_run.head_branch }}"
+          tag_name: ${{ github.event.workflow_run.head_branch }}
