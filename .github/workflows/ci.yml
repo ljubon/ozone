@@ -20,8 +20,12 @@ env:
   MAVEN_OPTS: -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.http.retryHandler.class=standard -Dmaven.wagon.http.retryHandler.count=3
   OZONE_WITH_COVERAGE: ${{ github.repository == 'apache/ozone' && github.event_name != 'pull_request' }}
 jobs:
+  lint:
+    uses: ./.github/workflows/lint.yaml
   build-info:
     runs-on: ubuntu-20.04
+    needs:
+      - lint
     env:
       GITHUB_CONTEXT: ${{ toJson(github) }}
     outputs:
