@@ -16,6 +16,7 @@ name: scheduled-ci
 on:
   schedule:
     - cron: 30 0,12 * * *
+  workflow_dispatch:
 jobs:
   CI:
     uses: ./.github/workflows/ci.yml
